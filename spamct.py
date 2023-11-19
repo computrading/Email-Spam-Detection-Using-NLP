@@ -1,9 +1,8 @@
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv('spam.csv', encoding='latin-1')
-df.sample(5)
-df.shape
+df = pd.read_csv('dataset/spam.csv', encoding='latin-1')
+print(df.shape)
 df.info() 
 
 columns_to_drop = ['Unnamed: 2','Unnamed: 3' 'Unnamed: 4']
@@ -12,16 +11,13 @@ existing_columns_to_drop = [col for col in columns_to_drop if col in df.columns]
 if existing_columns_to_drop:
     df.drop(columns=existing_columns_to_drop, inplace=True)
 
-df.drop(columns=['Unnamed: 3','Unnamed: 4'],inplace=True)
-df.sample(5)
 df.rename(columns={'v1' : 'target','v2':'text'},inplace= True)
-df.sample(5)
+print(df.head(5))
 
 from sklearn.preprocessing import LabelEncoder
 encoder = LabelEncoder()
 encoder.fit_transform(df['target'])
 
-df.head()
 df.isnull().sum()
 df.duplicated().sum()
 df=df.drop_duplicates(keep='first')
@@ -126,7 +122,7 @@ counter_df = pd.DataFrame(Counter(ham_corpus).most_common(30), columns=['Word', 
 
 from sklearn.feature_extraction.text import CountVectorizer,TfidfVectorizer
 cv = CountVectorizer()
-tfidf = TfidfVectorizer(max_features=3000)
+tfidf = TfidfVectorizer(max_features=6000)
 
 #X = cv.fit_transform(df['transformed_text']).toarray()
 X = tfidf.fit_transform(df['transformed_text']).toarray()
@@ -232,5 +228,5 @@ performance_df1 = pd.melt(performance_df, id_vars = "Algorithm")
 performance_df1
 
 import pickle
-pickle.dump(tfidf,open('vectorizer.pkl','wb'))
-pickle.dump(mnb,open('model.pkl','wb'))
+pickle.dump(tfidf,open('models/vectorizer.pkl','wb'))
+pickle.dump(mnb,open('models/model.pkl','wb'))

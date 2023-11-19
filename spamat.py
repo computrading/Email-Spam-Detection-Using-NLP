@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
-data = pd.read_csv('./dataset/spamails.csv')
+data = pd.read_csv('dataset/spamails.csv')
 def get_sequences(texts, tokenizer, train=True, max_seq_length=None):
     sequences = tokenizer.texts_to_sequences(texts)
     if train == True:

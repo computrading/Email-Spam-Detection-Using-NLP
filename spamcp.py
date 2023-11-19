@@ -34,21 +34,21 @@ def transform_text(text):
 
     return " ".join(y)
 
-model = pickle.load(open('model.pkl','rb'))
-message = pickle.load(open('vectorizer.pkl','rb'))
+model = pickle.load(open('models/model.pkl','rb'))
+message = pickle.load(open('models/vectorizer.pkl','rb'))
 
-input_sms = "Free entry in 2 a wkly comp to win FA Cup finalr"
+input_sms = "receive address people order account has been limited - Open PDF attachment for more information"
 
 # 1. preprocess
-#transformed_sms = transform_text(input_sms)
 transformed_sms = transform_text(input_sms)
 
 # 2. vectorize
 vector_input = message.transform([transformed_sms])
+
 # 3. predict
 result = model.predict(vector_input)[0]
 # 4. Display
 if result == 1:
-    print("Spam")
+    print("Spam ")
 else:
-    print("Not Spam")
+    print("Not Spam ")
